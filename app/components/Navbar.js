@@ -213,18 +213,6 @@ export default function Navbar() {
             }}
             className="flex items-center gap-2 py-2 text-purple-700 font-semibold hover:bg-purple-50 rounded transition w-full text-left"
           >
-            {user ? (
-              <>
-                <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                Logout
-                <span className="ml-1 text-xs font-normal">{user.username}</span>
-              </>
-            ) : (
-              <>
-                <UserIcon className="h-5 w-5" />
-                Login
-              </>
-            )}
           </button>
         </div>
       )}
