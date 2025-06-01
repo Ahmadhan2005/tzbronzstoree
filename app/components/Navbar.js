@@ -2,17 +2,12 @@
 import Link from "next/link";
 import {
   HomeIcon,
-  ClockIcon,
   Cog6ToothIcon,
-  UserIcon,
-  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-
-// ...existing imports...
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -40,35 +35,7 @@ export default function Navbar() {
     return () => window.removeEventListener("storage", syncUser);
   }, []);
 
-  const handleAuthClick = () => {
-    if (user) {
-      Swal.fire({
-        title: "Logout",
-        text: "Yakin ingin logout?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#8b5cf6",
-        cancelButtonColor: "#e5e7eb",
-        confirmButtonText: "Logout",
-        cancelButtonText: "Batal",
-        customClass: {
-          popup: "rounded-xl",
-          confirmButton: "font-bold",
-          cancelButton: "font-bold",
-        },
-        backdrop: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          localStorage.removeItem("user");
-          setUser(null);
-          router.refresh?.();
-          router.push("/");
-        }
-      });
-    } else {
-      router.push("/login");
-    }
-  };
+  // handleAuthClick sudah tidak digunakan karena tidak ada login/logout
 
   return (
     <nav className="bg-white/80 backdrop-blur border-b border-purple-100 shadow-sm px-2 sm:px-6 py-2 sticky top-0 z-50">
@@ -76,7 +43,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2">
           <div className="bg-gradient-to-br from-purple-600 to-purple-400 rounded-full w-9 h-9 flex items-center justify-center shadow overflow-hidden">
             <img
-              src="/logo/LOGO.png" // Ganti dengan path gambar/logo Anda
+              src="/logo/LOGO.png"
               alt="Logo"
               className="object-cover w-9 h-9"
             />
@@ -93,12 +60,7 @@ export default function Navbar() {
           >
             <HomeIcon className="h-5 w-5" /> <span className="hidden sm:inline">Home</span>
           </Link>
-          <Link
-            href="/riwayat"
-            className="flex items-center gap-1 px-2 py-1 rounded-md font-semibold text-purple-700 hover:bg-purple-50 transition"
-          >
-            <ClockIcon className="h-5 w-5" /> <span className="hidden sm:inline">Riwayat</span>
-          </Link>
+          {/* Riwayat & Logout dihilangkan */}
           {/* Tampilkan Dashboard jika admin */}
           {user?.role === "admin" && (
             <Link
@@ -120,23 +82,6 @@ export default function Navbar() {
             </svg>
             <span className="hidden sm:inline">Komunitas</span>
           </a>
-          <button
-            onClick={handleAuthClick}
-            className="flex items-center gap-1 px-2 py-1 rounded-md font-semibold text-purple-700 hover:bg-purple-50 transition"
-          >
-            {user ? (
-              <>
-                <ArrowRightOnRectangleIcon className="h-5 w-5" />
-                <span className="hidden sm:inline">Logout</span>
-                <span className="ml-1 text-xs font-normal">{user.username}</span>
-              </>
-            ) : (
-              <>
-                <UserIcon className="h-5 w-5" />
-                <span className="hidden sm:inline">Login</span>
-              </>
-            )}
-          </button>
         </div>
         {/* Mobile menu button */}
         <button
@@ -169,20 +114,8 @@ export default function Navbar() {
           >
             <HomeIcon className="h-5 w-5" /> Home
           </Link>
-          <Link
-            href="/riwayat"
-            className="flex items-center gap-2 py-2 text-purple-700 font-semibold hover:bg-purple-50 rounded transition"
-            onClick={() => setMenuOpen(false)}
-          >
-            <ClockIcon className="h-5 w-5" /> Riwayat
-          </Link>
-          <Link
-            href="/pengaturan"
-            className="flex items-center gap-2 py-2 text-purple-700 font-semibold hover:bg-purple-50 rounded transition"
-            onClick={() => setMenuOpen(false)}
-          >
-            <Cog6ToothIcon className="h-5 w-5" /> Pengaturan
-          </Link>
+          {/* Riwayat & Logout dihilangkan */}
+          {/* Pengaturan bisa dihapus jika tidak diperlukan */}
           {/* Tampilkan Dashboard jika admin */}
           {user?.role === "admin" && (
             <Link
@@ -195,7 +128,7 @@ export default function Navbar() {
           )}
           {/* Komunitas */}
           <a
-            href="https://chat.whatsapp.com/your-group-link"
+            href="https://chat.whatsapp.com/KSR75n9iyrE4YVv1J7LCmz"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 py-2 text-green-700 font-semibold hover:bg-green-50 rounded transition"
@@ -206,14 +139,6 @@ export default function Navbar() {
             </svg>
             Komunitas
           </a>
-          <button
-            onClick={() => {
-              setMenuOpen(false);
-              handleAuthClick();
-            }}
-            className="flex items-center gap-2 py-2 text-purple-700 font-semibold hover:bg-purple-50 rounded transition w-full text-left"
-          >
-          </button>
         </div>
       )}
       <style jsx>{`
